@@ -1,0 +1,10 @@
+target/
+.env
+.DS_Store
+*.class
+*.jar
+CLAUDE.md
+DESIGN.md
+AGENTS.md
+.gitnexus/
+.claude/
