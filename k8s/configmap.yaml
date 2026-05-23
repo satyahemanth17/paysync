@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: paysync-config
+data:
+  DB_URL: "jdbc:postgresql://postgres:5432/paysync"
+  DB_USERNAME: "paysync"
+  KAFKA_BOOTSTRAP_SERVERS: "kafka:29092"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"

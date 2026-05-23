@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Build transaction-service
+        run: cd transaction-service && mvn dependency:resolve -q && mvn clean install
+      - name: Build notification-service
+        run: cd notification-service && mvn dependency:resolve -q && mvn clean install -DskipTests
+      - name: Docker build check (transaction-service)
+        run: docker build -t paysync/transaction-service:test ./transaction-service
+      - name: Docker build check (notification-service)
+        run: docker build -t paysync/notification-service:test ./notification-service
